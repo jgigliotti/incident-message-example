@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1x600r0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+  <bpmn:process id="Process_1eknwmu" name="Broken Delegate Process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_06w85j9</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0bizqxf">
+      <bpmn:incoming>Flow_0cv2vjz</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0z23qzl" sourceRef="Gateway_1gd4ct7" targetRef="Activity_07nkg59" />
+    <bpmn:serviceTask id="Activity_07nkg59" name="Broken Delegate (Default)" camunda:asyncBefore="true" camunda:delegateExpression="${brokenJavaDelegate}">
+      <bpmn:incoming>Flow_0z23qzl</bpmn:incoming>
+      <bpmn:outgoing>Flow_17enx8p</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_06w85j9" sourceRef="StartEvent_1" targetRef="Gateway_1gd4ct7" />
+    <bpmn:parallelGateway id="Gateway_1gd4ct7">
+      <bpmn:incoming>Flow_06w85j9</bpmn:incoming>
+      <bpmn:outgoing>Flow_0z23qzl</bpmn:outgoing>
+      <bpmn:outgoing>Flow_100ma4p</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_17enx8p" sourceRef="Activity_07nkg59" targetRef="Gateway_07ozbb3" />
+    <bpmn:parallelGateway id="Gateway_07ozbb3">
+      <bpmn:incoming>Flow_17enx8p</bpmn:incoming>
+      <bpmn:incoming>Flow_0d9261y</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cv2vjz</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_0cv2vjz" sourceRef="Gateway_07ozbb3" targetRef="Event_0bizqxf" />
+    <bpmn:sequenceFlow id="Flow_100ma4p" sourceRef="Gateway_1gd4ct7" targetRef="Activity_1enpoll" />
+    <bpmn:sequenceFlow id="Flow_0d9261y" sourceRef="Activity_1enpoll" targetRef="Gateway_07ozbb3" />
+    <bpmn:serviceTask id="Activity_1enpoll" name="Broken Delegate (R0/PT10M)" camunda:asyncBefore="true" camunda:delegateExpression="${brokenJavaDelegate}">
+      <bpmn:extensionElements>
+        <camunda:failedJobRetryTimeCycle>R0/PT10M</camunda:failedJobRetryTimeCycle>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_100ma4p</bpmn:incoming>
+      <bpmn:outgoing>Flow_0d9261y</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1eknwmu">
+      <bpmndi:BPMNEdge id="Flow_0z23qzl_di" bpmnElement="Flow_0z23qzl">
+        <di:waypoint x="300" y="182" />
+        <di:waypoint x="300" y="120" />
+        <di:waypoint x="350" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06w85j9_di" bpmnElement="Flow_06w85j9">
+        <di:waypoint x="215" y="207" />
+        <di:waypoint x="275" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17enx8p_di" bpmnElement="Flow_17enx8p">
+        <di:waypoint x="450" y="120" />
+        <di:waypoint x="500" y="120" />
+        <di:waypoint x="500" y="182" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cv2vjz_di" bpmnElement="Flow_0cv2vjz">
+        <di:waypoint x="525" y="207" />
+        <di:waypoint x="572" y="207" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_100ma4p_di" bpmnElement="Flow_100ma4p">
+        <di:waypoint x="300" y="232" />
+        <di:waypoint x="300" y="290" />
+        <di:waypoint x="350" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d9261y_di" bpmnElement="Flow_0d9261y">
+        <di:waypoint x="450" y="290" />
+        <di:waypoint x="500" y="290" />
+        <di:waypoint x="500" y="232" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="189" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1f021xf_di" bpmnElement="Gateway_1gd4ct7">
+        <dc:Bounds x="275" y="182" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0s0j3zn_di" bpmnElement="Gateway_07ozbb3">
+        <dc:Bounds x="475" y="182" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0bizqxf_di" bpmnElement="Event_0bizqxf">
+        <dc:Bounds x="572" y="189" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_04gr5w6_di" bpmnElement="Activity_07nkg59">
+        <dc:Bounds x="350" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1yyb0ds_di" bpmnElement="Activity_1enpoll">
+        <dc:Bounds x="350" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
